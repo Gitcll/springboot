@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+<div style="margin: 0 150px">
+
+    <form class="form-horizontal" th:action="@{/AddAndUpdateUser}" role="form" th:method="post">
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">用户名称</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="username" th:value="${users?.username}"
+                       placeholder="姓名">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">用户年龄</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="userage" th:value="${users?.userage}"
+                       placeholder="年龄">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">用户手机号</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="iphone" th:value="${users?.iphone}"
+                       placeholder="手机号">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">用户地址</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="addree" th:value="${users?.addree}"
+                       placeholder="地址">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="hidden" name="userid" id="userid" th:value="${users?.userid}">
+                <button type="submit" class="btn btn-default">修 改</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

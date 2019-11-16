@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.softroad.mapper.UsersMapper">
+  <resultMap id="BaseResultMap" type="com.softroad.pojo.Users">
+    <id column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="userAge" jdbcType="INTEGER" property="userage" />
+    <result column="iphone" jdbcType="INTEGER" property="iphone" />
+    <result column="addree" jdbcType="VARCHAR" property="addree" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    userId, userName, userAge, iphone, addree
+  </sql>
+
+  <select id="pageSize" resultType="java.lang.Integer">
+    select
+    count(*)
+    from users
+  </select>
+
+  <select id="selectAllUser" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from users
+  </select>
+
+  <select id="pageSelect" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from users limit
+    #{start,jdbcType=INTEGER},
+    #{pageSize,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByName" parameterType="String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from users
+    where
+    <if test="username != null">
+      userName = #{username,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="loginUser" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+      userName,iphone
+    from users
+    where
+    <if test="userid != null">
+      userId = #{userid,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where userId = #{userid,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from users
+    where userId = #{userid,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.softroad.pojo.Users">
+    insert into users (userId, userName, userAge, 
+      iphone, addree)
+    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{userage,jdbcType=INTEGER}, 
+      #{iphone,jdbcType=INTEGER}, #{addree,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="userid"  parameterType="com.softroad.pojo.Users">
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="username != null">
+        userName,
+      </if>
+      <if test="userage != null">
+        userAge,
+      </if>
+      <if test="iphone != null">
+        iphone,
+      </if>
+      <if test="addree != null">
+        addree,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userage != null">
+        #{userage,jdbcType=INTEGER},
+      </if>
+      <if test="iphone != null">
+        #{iphone,jdbcType=INTEGER},
+      </if>
+      <if test="addree != null">
+        #{addree,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.softroad.pojo.Users">
+    update users
+    <set>
+      <if test="username != null">
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userage != null">
+        userAge = #{userage,jdbcType=INTEGER},
+      </if>
+      <if test="iphone != null">
+        iphone = #{iphone,jdbcType=INTEGER},
+      </if>
+      <if test="addree != null">
+        addree = #{addree,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userId = #{userid,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.softroad.pojo.Users">
+    update users
+    set userName = #{username,jdbcType=VARCHAR},
+      userAge = #{userage,jdbcType=INTEGER},
+      iphone = #{iphone,jdbcType=INTEGER},
+      addree = #{addree,jdbcType=VARCHAR}
+    where userId = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>

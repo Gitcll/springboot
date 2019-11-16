@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+
+<div style="margin: 0 150px">
+    <table class="table table-hover">
+        <caption>
+            <a th:href="@{/addUser}">添加</a>
+            <a th:href="@{/selectUser}">查看</a>
+        </caption>
+        <tbody>
+        <tr>
+            <th>用户ID</th>
+            <th>用户名称</th>
+            <th>用户年龄</th>
+            <th>用户手机号</th>
+            <th>用户地址</th>
+            <th>用户操作</th>
+        </tr>
+        <tr th:each="pageLists : ${pageList}">
+            <th th:text="${pageLists.userid}">用户ID</th>
+            <th th:text="${pageLists.username}">用户名称</th>
+            <th th:text="${pageLists.userage}">用户年龄</th>
+            <th th:text="${pageLists.iphone}">用户手机号</th>
+            <th th:text="${pageLists.addree}">用户地址</th>
+            <th>
+                <a th:href="@{'/updatePage?userid=' + ${pageLists.userid}}">修改</a>
+                <a th:href="@{'/deleteUser?id=' + ${pageLists.userid}}">删除</a>
+            </th>
+        </tr>
+        <tr>
+            <th colspan="6" style="text-align: center">
+                <span th:if="${curpage <= 1}">
+                    首页
+                    上一页
+                </span>
+
+                <span th:if="${curpage > 1}">
+                    <a th:href="@{/page}">首页</a>
+                    <a th:href="@{'/page?curpage=' + ${curpage - 1}}">上一页</a>
+                </span>
+
+                <span th:each="lists : ${list}">
+                    <a th:href="@{'/page?curpage=' + ${lists.userid}}">
+                        <em th:if="${lists.userid <= totalPage}">
+                            <span th:text="${lists.userid}"></span>
+                        </em>
+                    </a>
+                </span>
+
+                <span th:if="${curpage == totalPage}">
+                    下一页
+                    尾页
+                </span>
+
+                <span th:if="${curpage < totalPage}">
+                    <a th:href="@{'/page?curpage=' + ${curpage + 1}}">下一页</a>
+                    <a th:href="@{'/page?curpage=' + ${totalPage}}">尾页</a>
+                </span>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

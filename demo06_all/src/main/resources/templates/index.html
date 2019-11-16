@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+    <div style="margin: 0 150px">
+        <table class="table table-hover">
+            <tbody>
+            <tr>
+                <th>用户ID</th>
+                <th>用户名称</th>
+                <th>用户年龄</th>
+                <th>用户手机号</th>
+                <th>用户地址</th>
+            </tr>
+            <tr th:each="user : ${users}">
+                <th th:name="userid" th:text="${user.userid}">用户ID</th>
+                <th th:name="username" th:text="${user.username}">用户名称</th>
+                <th th:name="userage" th:text="${user.userage}">用户年龄</th>
+                <th th:name="iphone" th:text="${user.iphone}">用户手机号</th>
+                <th th:name="addree" th:text="${user.addree}">用户地址</th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
